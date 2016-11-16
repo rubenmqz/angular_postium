@@ -21,9 +21,9 @@ export class PostsResolve implements Resolve<Post[]> {
          |-----------------------------------------------------------------------------------------*/
 
         if (route.url.length > 2) {
-            if (route.url[1]=='users') {
+            if (route.url[1].path=='users') {
                 return this._postService
-                           .getUserPosts(route.url[2]);
+                           .getUserPosts(Number(route.url[2]));
             }
 
             /*-----------------------------------------------------------------------------------------|
@@ -34,8 +34,9 @@ export class PostsResolve implements Resolve<Post[]> {
              | Recuerda mirar en los parámetros de la ruta, a ver qué encuentras.                      |
              |-----------------------------------------------------------------------------------------*/
 
-            else {
-                return this._postService.getCategoryPosts();
+            else if (route.url[1].path=='categories') {
+                return this._postService
+                            .getCategoryPosts(Number(route.url[2]));
             }
         }
         

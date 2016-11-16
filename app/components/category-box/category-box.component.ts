@@ -1,4 +1,4 @@
-import { Component, Input } from "@angular/core";
+import { Component, Input, Output, EventEmitter } from "@angular/core";
 
 import { Category } from "../../models/category";
 
@@ -19,4 +19,9 @@ export class CategoryBoxComponent {
      | clic se realiza en el template de este componente, necesitas, además, un manejador para el mismo.                 |
      |-------------------------------------------------------------------------------------------------------------------*/
 
+    @Output() categoryClicked: EventEmitter<Category> = new EventEmitter();
+
+    onCategoryClicked(category: Category) {
+        this.categoryClicked.emit(category)
+    }
 }

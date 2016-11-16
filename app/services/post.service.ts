@@ -5,6 +5,7 @@ import "rxjs/add/operator/map";
 
 import { BackendUri } from "./settings.service";
 import { Post } from "../models/post";
+import { Category } from "../models/category";
 
 @Injectable()
 export class PostService {
@@ -86,9 +87,29 @@ export class PostService {
          |   - Ordenación: _sort=publicationDate&_order=DESC                                                |
          |--------------------------------------------------------------------------------------------------*/
 
+        let today: number = Date.now();
+
         return this._http
-                   .get(`${this._backendUri}/posts`)
-                   .map((response: Response) => Post.fromJsonToList(response.json()));
+                   .get(`${this._backendUri}/posts?publicationDate_lte=${today}&_sort=publicationDate&_order=DESC`)
+                   .map((response: Response) => {
+                       let postsByCategory: [Post] = []
+
+                       let allPosts: any[] = response.json();
+
+                       allPosts.forEach((post) => {
+                           let realPost: Post = Post.fromJson(post);
+                           
+                           function containsCategory(elemento: Category) {
+                              return elemento.id == this;
+                           }
+
+                           if (realPost.categories.filter(containsCategory, id).length > 0) {
+                               postsByCategory.push(realPost);
+                           }
+                       })
+
+                       return postsByCategory;
+                   });
     }
 
     getPostDetails(id: number): Observable<Post> {
