@@ -65,7 +65,6 @@ export class PostService {
     }
 
     getCategoryPosts(id: number): Observable<Post[]> {
-
         /*--------------------------------------------------------------------------------------------------|
          | ~~~ Yellow Path ~~~                                                                              |
          |--------------------------------------------------------------------------------------------------|
@@ -92,7 +91,9 @@ export class PostService {
         return this._http
                    .get(`${this._backendUri}/posts?publicationDate_lte=${today}&_sort=publicationDate&_order=DESC`)
                    .map((response: Response) => {
-                       let postsByCategory: [Post] = []
+                       console.log(1);
+                       let postsByCategory: Post[] = [];
+                       console.log(2);
 
                        let allPosts: any[] = response.json();
 
@@ -130,6 +131,12 @@ export class PostService {
          | 'fromJson() para crar un nuevo objeto Post basado en la respuesta HTTP obtenida. |
          |----------------------------------------------------------------------------------*/
 
-        return null;
+        return this._http
+                   .post(`${this._backendUri}/posts`, post)
+                   .map((response: Response) => {
+                     let respuestaJson = response.json();
+                     let post: Post = Post.fromJson(respuestaJson);
+                     return post;
+                   });
     }
 }

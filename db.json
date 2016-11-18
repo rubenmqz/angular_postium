@@ -251,6 +251,21 @@
       ],
       "likes": 4,
       "id": 10
+    },
+    {
+      "title": "Perdiz se come al lobo",
+      "intro": "Caperucita y la abuelita lo celebran comiendo perdices",
+      "body": "Lorem ipsum y tal",
+      "publicationDate": 1479469423945,
+      "author": {
+        "id": 1,
+        "name": "KeepCoder",
+        "username": "keepcoder",
+        "email": "keepcoder@postium.com",
+        "avatar": "resources/images/keepcoder.jpg"
+      },
+      "likes": 0,
+      "id": 12
     }
   ],
   "categories": [

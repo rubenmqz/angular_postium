@@ -41,6 +41,7 @@ export class PostPreviewComponent {
     }
 
     plainTextToHtml(text: string): string {
+        console.log(text);
         return `<p>${text.replace(/\n/gi, "</p><p>")}</p>`;
     }
 }
